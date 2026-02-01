@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustainable Patrol Routing in Chicago</title>
+    <!-- 引入北欧风格无衬线字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* 核心配色：北欧风天蓝+浅绿，中性色强调简洁 */
+        :root {
+            --sky-blue: #87CEEB;
+            --light-green: #90EE90;
+            --light-gray: #f8f9fa;
+            --dark-gray: #333333;
+            --white: #ffffff;
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* 语言切换按钮 */
+        .lang-switch {
+            text-align: right;
+            margin-bottom: 2rem;
+        }
+
+        .lang-btn {
+            background: var(--sky-blue);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            margin-left: 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: var(--light-green);
+        }
+
+        /* 标题区域 */
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--sky-blue);
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark-gray);
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* 板块通用样式 */
+        .section {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+        }
+
+        .section h2 {
+            color: var(--dark-gray);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--light-green);
+            font-size: 1.6rem;
+        }
+
+        .section p, .section ul {
+            font-size: 1.05rem;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        .section ul {
+            list-style-position: inside;
+            margin-left: 1rem;
+        }
+
+        /* GitHub按钮通用样式 */
+        .github-btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--sky-blue), var(--light-green));
+            color: var(--dark-gray);
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease;
+        }
+
+        .github-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* 中部按钮居中 */
+        .middle-btn {
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        /* 底部区域 */
+        .footer {
+            background: var(--white);
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--sky-blue);
+            margin-top: 4rem;
+        }
+
+        .footer p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+        }
+
+        /* 初始隐藏中文内容，默认显示英文 */
+        [data-lang="zh"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 语言切换按钮 -->
+        <div class="lang-switch">
+            <button class="lang-btn" id="en-btn">English</button>
+            <button class="lang-btn" id="zh-btn">中文</button>
+        </div>
+
+        <!-- 标题区域 -->
+        <div class="header">
+            <h1 data-lang="en">Sustainable Patrol Routing in Chicago</h1>
+            <h1 data-lang="zh">芝加哥可持续巡逻路线规划</h1>
+            <p data-lang="en">Team 6 | DDA3003 Visual Analytics, Spring 2026</p>
+            <p data-lang="zh">第六小组 | DDA3003 可视分析，2026年春季</p>
+        </div>
+
+        <!-- Abstract 摘要 -->
+        <section class="section">
+            <h2 data-lang="en">Abstract</h2>
+            <h2 data-lang="zh">摘要</h2>
+            <p data-lang="en">This project focuses on sustainable patrol routing in Chicago to achieve SDG16 (Peace, Justice and Strong Institutions) and SDG13 (Climate Action). We propose a Dynamic Spatio-Temporal Patrol Optimization (DSTPO) framework integrating STSGCN and ConvLSTM, aiming to maximize crime hot-spot coverage, minimize carbon emissions, and reduce response time while mitigating enforcement bias.</p>
+            <p data-lang="zh">本项目聚焦芝加哥可持续巡逻路线规划，旨在实现SDG16（和平、正义与强大机构）与SDG13（气候行动）目标。我们提出融合STSGCN和ConvLSTM的动态时空巡逻优化（DSTPO）框架，力求最大化犯罪热点覆盖、最小化碳排放、缩短响应时间，同时缓解执法偏差。</p>
+        </section>
+
+        <!-- Workflow 工作流 -->
+        <section class="section">
+            <h2 data-lang="en">Workflow</h2>
+            <h2 data-lang="zh">工作流</h2>
+            <ul data-lang="en">
+                <li>Define objectives and review relevant literature</li>
+                <li>Collect and preprocess Chicago crime/traffic/mobility data</li>
+                <li>Implement ML/DL models (STSGCN + SEPP) for spatio-temporal prediction</li>
+                <li>Train and fine-tune models on GPU clusters</li>
+                <li>Evaluate model performance with baselines and metrics</li>
+                <li>Visualize results for intuitive interpretation</li>
+            </ul>
+            <ul data-lang="zh">
+                <li>明确研究目标并梳理相关文献</li>
+                <li>收集并预处理芝加哥犯罪/交通/人口流动数据</li>
+                <li>实现机器学习/深度学习模型（STSGCN + SEPP）进行时空预测</li>
+                <li>在GPU集群上训练并微调模型</li>
+                <li>结合基线模型与评估指标验证模型性能</li>
+                <li>可视化结果以实现直观解读</li>
+            </ul>
+        </section>
+
+        <!-- Data & Experience 数据与实验 -->
+        <section class="section">
+            <h2 data-lang="en">Data & Experiment</h2>
+            <h2 data-lang="zh">数据与实验</h2>
+            <p data-lang="en"><strong>Data Sources (Official & Authoritative):</strong></p>
+            <p data-lang="zh"><strong>数据来源（官方且权威）：</strong></p>
+            <ul data-lang="en">
+                <li>Chicago Crime Records (2016–2023)</li>
+                <li>Chicago Police Beats Boundaries</li>
+                <li>Chicago Real-time/Historical Traffic Congestion</li>
+            </ul>
+            <ul data-lang="zh">
+                <li>芝加哥犯罪记录（2016-2023）</li>
+                <li>芝加哥警局辖区边界数据</li>
+                <li>芝加哥实时/历史交通拥堵数据</li>
+            </ul>
+            <p data-lang="en"><strong>Experiment Details:</strong> Timeline (Spring 2026), minimal cost (personal laptops + university GPU clusters), milestones (midterm: model integration; final: >80% accuracy, 10% fuel reduction).</p>
+            <p data-lang="zh"><strong>实验细节：</strong> 时间线（2026年春季）、低成本（个人电脑 + 学校GPU集群）、里程碑（中期：模型集成；终期：准确率＞80%，油耗降低10%）。</p>
+        </section>
+
+        <!-- Innovative & Impact 创新与影响 -->
+        <section class="section">
+            <h2 data-lang="en">Innovative & Impact</h2>
+            <h2 data-lang="zh">创新与影响</h2>
+            <p data-lang="en"><strong>Innovation:</strong></p>
+            <p data-lang="zh"><strong>创新点：</strong></p>
+            <ul data-lang="en">
+                <li>Multi-source data fusion (crime + traffic + mobility + energy consumption)</li>
+                <li>Spatio-temporal modeling (STSGCN + SEPP) for dynamic risk prediction</li>
+                <li>Multi-objective optimization (SDG16 + SDG13: coverage, emission, response time)</li>
+            </ul>
+            <ul data-lang="zh">
+                <li>多源数据融合（犯罪 + 交通 + 人口流动 + 能耗）</li>
+                <li>时空建模（STSGCN + SEPP）实现动态风险预测</li>
+                <li>多目标优化（SDG16 + SDG13：覆盖度、碳排放、响应时间）</li>
+            </ul>
+            <p data-lang="en"><strong>Impact:</strong> Safer communities (SDG16), reduced carbon footprint (SDG13), academic paradigm for sustainable policing, practical blueprint for smart cities.</p>
+            <p data-lang="zh"><strong>影响：</strong> 提升社区安全性（SDG16）、降低碳足迹（SDG13）、构建可持续警务的学术范式、为智慧城市提供实用蓝图。</p>
+        </section>
+
+        <!-- 中部GitHub按钮 -->
+        <div class="middle-btn">
+            <a href="https://github.com/your-repo-url" target="_blank" class="github-btn" data-lang="en">View Project on GitHub</a>
+            <a href="https://github.com/your-repo-url" target="_blank" class="github-btn" data-lang="zh">在GitHub查看项目</a>
+        </div>
+    </div>
+
+    <!-- 底部区域 -->
+    <div class="footer">
+        <p data-lang="en">© 2026 Team 6 - Sustainable Patrol Routing in Chicago</p>
+        <p data-lang="zh">© 2026 第六小组 - 芝加哥可持续巡逻路线规划</p>
+        <a href="https://github.com/your-repo-url" target="_blank" class="github-btn" data-lang="en">Access GitHub Repository</a>
+        <a href="https://github.com/your-repo-url" target="_blank" class="github-btn" data-lang="zh">访问GitHub仓库</a>
+    </div>
+
+    <script>
+        // 语言切换逻辑
+        const enBtn = document.getElementById('en-btn');
+        const zhBtn = document.getElementById('zh-btn');
+        const langElements = document.querySelectorAll('[data-lang]');
+
+        // 切换为英文
+        enBtn.addEventListener('click', () => {
+            langElements.forEach(el => {
+                if (el.dataset.lang === 'en') {
+                    el.style.display = 'block';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+            // 修复列表/段落的显示逻辑
+            document.querySelectorAll('[data-lang="zh"]').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('[data-lang="en"]').forEach(el => {
+                if (el.tagName === 'UL' || el.tagName === 'P' || el.tagName === 'H1' || el.tagName === 'H2' || el.tagName === 'A') {
+                    el.style.display = 'block';
+                }
+            });
+        });
+
+        // 切换为中文
+        zhBtn.addEventListener('click', () => {
+            langElements.forEach(el => {
+                if (el.dataset.lang === 'zh') {
+                    el.style.display = 'block';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+            // 修复列表/段落的显示逻辑
+            document.querySelectorAll('[data-lang="en"]').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('[data-lang="zh"]').forEach(el => {
+                if (el.tagName === 'UL' || el.tagName === 'P' || el.tagName === 'H1' || el.tagName === 'H2' || el.tagName === 'A') {
+                    el.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
